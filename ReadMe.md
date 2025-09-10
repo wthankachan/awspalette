@@ -1,0 +1,1 @@
+This is the code for AWS Palette - hyper personalized customer experience 
