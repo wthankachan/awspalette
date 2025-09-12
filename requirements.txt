@@ -1,2 +1,3 @@
 redshift-connector
 flask
+flask-cors
