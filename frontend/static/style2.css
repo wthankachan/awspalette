@@ -60,3 +60,27 @@ header {
   background-color: #3e8e41; /* Even darker green when clicked */
   transform: scale(0.95); /* Slightly shrink on click */
 }
+.social-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    .social-buttons a {
+      text-decoration: none;
+      color: white;
+      font-size: 20px;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: transform 0.3s ease;
+    }
+    .social-buttons a:hover {
+      transform: scale(1.1);
+    }
+    .facebook { background-color: #3b5998; }
+    .twitter { background-color: #1da1f2; }
+    .instagram { background-color: #e4405f; }
+    .linkedin { background-color: #0077b5; }
