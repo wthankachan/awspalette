@@ -1,8 +1,8 @@
 from flask import Flask,request,Response,jsonify
 from flask_cors import CORS,cross_origin
-from utils.customerdata import customerprofile
-customer=customerprofile()
+from utils.customerdata import customerdata
 app=Flask(__name__)
+customerdata=customerdata()
 CORS(app)
 @app.route("/")
 @cross_origin()
@@ -17,27 +17,24 @@ def home():
         }
     }
     return jsonify(response)
-@app.route("/initialize",methods=['POST','GET'])
+@app.route("/customerdata",methods=['GET'])
 @cross_origin()
-def initialize():
-    if not (agent.agentsInitialized):
-        print("Initializing Agents...")
-        agent.create_associate_agents()
-    print("Initialized Agents...")
+def getcustomerdata():
+    results=customerdata.getcustomerdata()
     response={
         "data": 
         {
             "message":
                     {
-                        "content":"Agents initialized"
+                        "content":f"{results}"
                     }
         }
     }
     return jsonify(response)
 
-@app.route("/invoke",methods=['POST'])
+@app.route("/customerprofile",methods=['POST'])
 @cross_origin()
-def invoke():
+def getcustomerprofile():
     query=request.json['messages'][0]['content']
     answer=agent.invoke(query)
     response={

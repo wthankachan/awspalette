@@ -1,2 +1,2 @@
-#export AWS_PROFILE=provide the appropriate profile here
+export AWS_PROFILE="awspalette"
 python app.py

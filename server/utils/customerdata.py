@@ -1,9 +1,9 @@
 import redshift_connector
 #redshift://default-workgroup.276361193305.us-east-2.redshift-serverless.amazonaws.com:5439/dev
-class customerprofile:
+class customerdata:
    conn=None
    def __init__(self):
-      conn = redshift_connector.connect(
+      self.conn = redshift_connector.connect(
          host='default-workgroup.276361193305.us-east-2.redshift-serverless.amazonaws.com',
          database='anycompany_customer360',
          port=5439,
