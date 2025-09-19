@@ -1,4 +1,5 @@
 import redshift_connector
+import json
 #redshift://default-workgroup.276361193305.us-east-2.redshift-serverless.amazonaws.com:5439/dev
 class customerdata:
    conn=None
@@ -17,4 +18,8 @@ class customerdata:
          cursor.execute("select * from customer_traits")
          #Retrieve the query result set
          result: tuple = cursor.fetchall()
-         return result
+         return self.formatresults(result)
+   def formatresults(self,inputvalue:tuple)->tuple:
+      outputvalue = inputvalue
+      return outputvalue
+
