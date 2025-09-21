@@ -1,5 +1,6 @@
 import redshift_connector
 import json
+from utils.tools.customerprofile import customerprofile
 #redshift://default-workgroup.276361193305.us-east-2.redshift-serverless.amazonaws.com:5439/dev
 class customerdata:
    conn=None
@@ -19,7 +20,8 @@ class customerdata:
          #Retrieve the query result set
          result: tuple = cursor.fetchall()
          return self.formatresults(result)
-   def formatresults(self,inputvalue:tuple)->tuple:
+   def formatresults(self,inputvalue:tuple)->str:
       outputvalue = inputvalue
-      return outputvalue
+      customer=customerprofile()
+      return customer.generateprofile(outputvalue)
 
