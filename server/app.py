@@ -1,12 +1,25 @@
 from flask import Flask,request,Response,jsonify
 from flask_cors import CORS,cross_origin
 from utils.agents.customer import Customer
-from utils.agents.tools.customerdata import CustomerData
+from utils.database.cdp import CustomerData
 import json
+import configparser
+#create the global objects
 app=Flask(__name__)
 customer=Customer()
 customerdata=CustomerData()
+config=configparser.ConfigParser()
 CORS(app)
+
+#initialize the config
+#default mode is development
+mode="Development"
+config.read('config.ini')
+rowlimit=config[mode]['rowlimit']
+
+
+#create the routes
+#default route just displays a message
 @app.route("/")
 @cross_origin()
 def home():
@@ -15,15 +28,18 @@ def home():
         {
             "message":
                     {
-                        "content": "I am the customer support server"
+                        "content": "I am the customer server"
                     }
         }
     }
     return jsonify(response)
+
+#get the customers
 @app.route("/customers",methods=['GET'])
 @cross_origin()
 def getcustomers():
-    results=customerdata.getcustomers()
+    global rowlimit
+    results=customerdata.getcustomers(rowlimit=rowlimit)
     response={
         "data": 
         {
@@ -33,17 +49,11 @@ def getcustomers():
                     }
         }
     }
-    return jsonify(response)
-@app.route("/customerprofile",methods=['GET','POST'])
+    return response
+@app.route("/customerprofile/<customerid>",methods=['GET','POST'])
 @cross_origin()
-def generateprofile():
-    inputdata=json.loads("""{
-        "age": 23,
-        "gender": "male"
-    }
-    """
-    )
-    results=customer.generateprofile(inputdata)
+def generateprofile(customerid='0'):
+    results=customer.generateprofile(customerid)
     response={
         "data": 
         {

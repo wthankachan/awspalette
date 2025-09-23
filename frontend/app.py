@@ -3,13 +3,30 @@ from flask import render_template
 from flask import url_for
 import requests
 import configparser
+import json
+import ast
 
+#initialize the global values
 app = Flask(__name__)
 config=configparser.ConfigParser()
 config.read('config.ini')
+
+#read the config values
+#default is running in development mode
+#TODO: use the mode argument to determine if dev or prod
+mode='Development'
+APIURL=config[mode]["protocol"]+"://"+config[mode]["apibaseurl"]+":"+config[mode]["port"]+"/"
+
+
+# route mapping
+# default route to list the customers
 @app.route("/")
 def customerdata():
-    customer=[('a','b','c','d','e','f','g'),('1','2','3','4','5','6','7')]
+    global APIURL
+    global mode
+    APIURL=APIURL+config[mode]["customers"]
+    response=requests.get(APIURL)
+    customer=ast.literal_eval(response.json()["data"]["message"]["content"])
     return render_template('customerdata.html',data=customer)
 
 
