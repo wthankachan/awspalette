@@ -10,6 +10,7 @@
       <header>
       <h2>Any Company Inc - Customer Personas</h2>
       </header>
+    <form action="generate">
     <table>
       <thead>
         <tr>
@@ -26,7 +27,7 @@
       <tbody>
         {% for customer in data %}
             <tr>
-              <td><input type="checkbox" name="option1" value="101"></td>
+              <td><input type="radio" name="customerid" value={{customer[0]}}></td>
               <td>{{customer[0]}}</td>
               <td>{{customer[1]}}</td>
               <td>{{customer[2]}}</td>
@@ -38,8 +39,7 @@
         {% endfor %}
       </tbody>
     </table>
-    <form action="/generate">
-      <button type="submit" class="submit-btn" style="float: right;" >Generate Profile</button>
+    <button type="submit" class="submit-btn" style="float: right;">Generate Profile</button>
     </form>
   </body>
 </html>

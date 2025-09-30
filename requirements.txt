@@ -2,5 +2,5 @@ redshift-connector
 flask
 flask-cors
 strands-agents
-requests
+request
 configparser

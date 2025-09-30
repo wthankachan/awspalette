@@ -1,16 +1,12 @@
 import redshift_connector
 import json
+import configparser
 #redshift://default-workgroup.276361193305.us-east-2.redshift-serverless.amazonaws.com:5439/dev
 class CustomerData:
    conn=None
-   def __init__(self):
-      self.conn = redshift_connector.connect(
-         host='default-workgroup.276361193305.us-east-2.redshift-serverless.amazonaws.com',
-         database='anycompany_customer360',
-         port=5439,
-         user='awspalette',
-         password='awsPale733'
-      )
+   def __init__(self,config:configparser,mode:str="Development"):
+      self.dbconnect(config[mode])
+
    def getcustomerdata(self,customerid:str)->tuple:  
          # Create a Cursor object
          cursor = self.conn.cursor()
@@ -20,6 +16,7 @@ class CustomerData:
          result: tuple = cursor.fetchall()
          cursor.close()
          return result
+   
    def getcustomers(self,rowlimit:int)->tuple:
       # Create a Cursor object
       cursor = self.conn.cursor()
@@ -28,6 +25,16 @@ class CustomerData:
       #Retrieve the query result set
       result: tuple = cursor.fetchall()
       cursor.close()
-      return result 
-      
+      return result
+   
+   def dbconnect(self,dbconfig): 
+      self.conn = redshift_connector.connect(
+         host=dbconfig["host"],
+         database=dbconfig["database"],
+         port=dbconfig["port"],
+         user=dbconfig["user"],
+         password=dbconfig["password"]
+      )
 
+   def dbclose(self):
+      self.conn.close()

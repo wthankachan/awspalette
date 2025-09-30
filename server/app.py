@@ -6,8 +6,7 @@ import json
 import configparser
 #create the global objects
 app=Flask(__name__)
-customer=Customer()
-customerdata=CustomerData()
+
 config=configparser.ConfigParser()
 CORS(app)
 
@@ -16,7 +15,8 @@ CORS(app)
 mode="Development"
 config.read('config.ini')
 rowlimit=config[mode]['rowlimit']
-
+customer=Customer()
+customerdata=CustomerData(config,mode)
 
 #create the routes
 #default route just displays a message

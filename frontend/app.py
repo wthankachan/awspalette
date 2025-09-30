@@ -1,10 +1,11 @@
-from flask import Flask
+from flask import Flask, request
 from flask import render_template
 from flask import url_for
-import requests
 import configparser
 import json
 import ast
+import requests
+import html
 
 #initialize the global values
 app = Flask(__name__)
@@ -15,24 +16,34 @@ config.read('config.ini')
 #default is running in development mode
 #TODO: use the mode argument to determine if dev or prod
 mode='Development'
-APIURL=config[mode]["protocol"]+"://"+config[mode]["apibaseurl"]+":"+config[mode]["port"]+"/"
+BASEAPIURL=config[mode]["protocol"]+"://"+config[mode]["apibaseurl"]+":"+config[mode]["port"]+"/"
 
 
 # route mapping
 # default route to list the customers
 @app.route("/")
 def customerdata():
-    global APIURL
+    global BASEAPIURL
     global mode
-    APIURL=APIURL+config[mode]["customers"]
+    APIURL=BASEAPIURL+config[mode]["customers"]
     response=requests.get(APIURL)
     customer=ast.literal_eval(response.json()["data"]["message"]["content"])
     return render_template('customerdata.html',data=customer)
 
 
-@app.route("/generate")
+@app.route("/generate",methods=['GET','POST'])
 def customerprofile():
-    return render_template('customerprofile.html')
+    global BASEAPIURL
+    global mode
+    customerid = request.args.get('customerid', default='0')
+    APIURL=BASEAPIURL+config[mode]["customerprofile"]+"/"+customerid
+    response=requests.get(APIURL)
+    customerprofile=response.json()["data"]["message"]["content"]
+    #data=html.escape(customerprofile)
+    print("start")
+    print(customerprofile)
+    print("finish")
+    return render_template('customerprofile.html',data=customerprofile)
 
 
 @app.route("/social")

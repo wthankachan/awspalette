@@ -7,88 +7,12 @@
 </head>
     <body>
          <header>
-    <h2>Any Company Inc - Customer Profile</h2>
+    <h2>Any Company Inc</h2>
     </header>
-    <table>
-    <thead>
-      <tr>
-        <th>User Profile</th>
-        <th>Prompt</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>{
-"name": "John Doe",
-"age": 37,
-"player_type": "tennis enthusiast",
-"play_frequency": "3-4 times weekly",
-"membership": "regional tennis league player",
-"customer_type": "regular buyer"
-}
-
-PURCHASE_HISTORY = [
-{
-"item": "Head Ti.S6 Tennis Racquet",
-"date": "recent",
-"category": "equipment"
-},
-{
-"item": "Penn Championship Tennis Balls",
-"quantity": 12,
-"category": "consumables"
-},
-{
-"item": "Nike Dri-FIT Tennis Shorts",
-"quantity": 2,
-"category": "apparel"
-},
-{
-"item": "Wilson Tour Premier Tennis Backpack",
-"category": "accessories"
-},
-{
-"item": "Tourna Grip XL Tennis Overgrip",
-"quantity": 3,
-"category": "accessories"
-},
-{
-"item": "Wilson Rush Pro 4.0 Tennis Shoes",
-"details": {
-"size": 11,
-"color": "White/Blue",
-"price": 129.99,
-"purpose": "tournament season",
-"status": "most recent purchase"
-}
-}
-]
-</td>
-<td>
-John Doe
-Age: 37
-Avid tennis player who participates in local club tournaments
-Plays 3-4 times per week
-Member of regional tennis league
-Has purchased multiple tennis-related items in past 6 months
-Recent Order History:
-
-Head Ti.S6 Tennis Racquet
-Pack of 12 Penn Championship Tennis Balls
-Nike Dri-FIT Tennis Shorts (2 pairs)
-Wilson Tour Premier Tennis Backpack
-Tourna Grip XL Tennis Overgrip (3-pack)
-Wilson Rush Pro 4.0 Tennis Shoes - Size 11
-Color: White/Blue
-Most recent purchase
-Selected for durability and court grip
-Price: $129.99
-Ordered for upcoming tournament season
-</td>
-</tr>
-</tbody>
-</table>
-  <form action="/social">
+    <form action="/social">
+    {% autoescape false %}
+       {{ data }}
+    {% endautoescape %}
     <button type="submit" class="submit-btn" style="float: right;" >Create Customer Experience</button>
   </form>
 </body>
