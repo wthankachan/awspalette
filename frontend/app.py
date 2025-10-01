@@ -39,10 +39,6 @@ def customerprofile():
     APIURL=BASEAPIURL+config[mode]["customerprofile"]+"/"+customerid
     response=requests.get(APIURL)
     customerprofile=response.json()["data"]["message"]["content"]
-    #data=html.escape(customerprofile)
-    print("start")
-    print(customerprofile)
-    print("finish")
     return render_template('customerprofile.html',data=customerprofile)
 
 

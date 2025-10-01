@@ -20,7 +20,7 @@ class Customer:
     #tool for getting customer data from cdp.py
     @tool
     def getcustomerdata(self,customerid: str)->tuple:
-        cdp=CustomerData('dbconfig.ini')
+        cdp=CustomerData('config.ini')
         try:
             results=cdp.getcustomerdata(customerid)
             return results

@@ -2,5 +2,6 @@ redshift-connector
 flask
 flask-cors
 strands-agents
-request
+requests
 configparser
+bedrock-agentcore
