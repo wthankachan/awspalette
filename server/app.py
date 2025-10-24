@@ -4,6 +4,8 @@ from utils.agents.customer import Customer
 from utils.database.cdp import CustomerData
 import json
 import configparser
+import utils.agents.personalizecontent as pc
+
 #create the global objects
 app=Flask(__name__)
 
@@ -64,5 +66,23 @@ def generateprofile(customerid='0'):
         }
     }
     return jsonify(response)
+
+@app.route("/personalize/<prompt>",methods=['GET','POST'])
+@cross_origin()
+def personalise(prompt:str):
+    results=pc.customize_background(prompt)
+    response={
+        "data": 
+        {
+            "message":
+                    {
+                        "content":f"{results}"
+                    }
+        }
+    }
+    return jsonify(response)
+
+
+
 if (__name__=="__main__"): 
     app.run(debug=True,host="0.0.0.0",port="8081")

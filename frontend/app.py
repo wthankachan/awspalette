@@ -41,9 +41,23 @@ def customerprofile():
     customerprofile=response.json()["data"]["message"]["content"]
     return render_template('customerprofile.html',data=customerprofile)
 
+@app.route("/addimages")
+def addimages():
+    return render_template('addimages.html')
 
 @app.route("/social")
 def socialmedia():
     return render_template('socialmedia.html')
+
+@app.route("/personalizedimages", methods=['POST','GET'])
+def personalizedimages():
+    global BASEAPIURL
+    global mode
+    prompt = request.args.get('prompt')
+    APIURL=BASEAPIURL+config[mode]["personalize"]+"/"+prompt
+    response=requests.get(APIURL)
+    #image64content=response.json()["data"]["message"]["content"]
+    return render_template('personalizedimages.html',data=response.json()['data']['message']['content'])
+
 if (__name__== '__main__'): app.run(host='0.0.0.0',port='8080',debug=True)
 
