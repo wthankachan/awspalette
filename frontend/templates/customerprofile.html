@@ -9,11 +9,12 @@
          <header>
     <h2>Any Company Inc</h2>
     </header>
-    <form action="/social">
-    {% autoescape false %}
-       {{ data }}
-    {% endautoescape %}
-    <button type="submit" class="submit-btn" style="float: right;" >Create Customer Experience</button>
+    <form action="/personalizedimages" method="post">
+      {% autoescape false %}
+         {{ data }}
+       {% endautoescape %}
+      <textarea name="profile" style="display:none;">{{ data | safe | striptags }}</textarea>
+    <button type="submit" class="submit-btn" style="float: right;" >Create Personalized Content</button>
   </form>
 </body>
 </html>

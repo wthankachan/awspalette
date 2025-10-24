@@ -5,18 +5,13 @@
         <title>AnyCompany Inc.</title>
         <link rel="stylesheet" href="/static/style2.css"/>
     </head>
-    <!--
-   <form action="/social">
-        <img src="data:image/png;base64,{{ data }}" alt="Personalized Image"/>
-        <button type="submit" class="submit-btn" style="float: right;" >Generate Personalized Content</button>
-    </form>
--->
     <body>
-        <div class="container">
-            <h1>Personalized Images</h1>
-            <!-- {% for image in data %} -->
-             {{ data}}
-            <!-- {% endfor %} -->
-        </div>
-    </body>
+    <form action="/social">
+             <div class="container">
+                <h1>Personalized Images</h1>
+                <img src="data:image/png;base64,{{ data }}" alt="Personalized Image"/>
+            </div>
+            <button type="submit" class="submit-btn" style="float: right;" >Create Customer Experience</button>
+        </form>
+        </body>
 </html>

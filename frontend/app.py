@@ -49,15 +49,16 @@ def addimages():
 def socialmedia():
     return render_template('socialmedia.html')
 
-@app.route("/personalizedimages", methods=['POST','GET'])
+@app.route("/personalizedimages", methods=['POST'])
 def personalizedimages():
     global BASEAPIURL
     global mode
-    prompt = request.args.get('prompt')
-    APIURL=BASEAPIURL+config[mode]["personalize"]+"/"+prompt
-    response=requests.get(APIURL)
-    #image64content=response.json()["data"]["message"]["content"]
-    return render_template('personalizedimages.html',data=response.json()['data']['message']['content'])
+    APIURL=BASEAPIURL+config[mode]["personalize"]
+    profile=request.form['profile']
+    response=requests.post(APIURL,data=profile)
+    image64content=response.json()["data"]["message"]["content"]
+    return render_template('personalizedimages.html',data=image64content)
+  
 
 if (__name__== '__main__'): app.run(host='0.0.0.0',port='8080',debug=True)
 

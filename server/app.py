@@ -67,10 +67,11 @@ def generateprofile(customerid='0'):
     }
     return jsonify(response)
 
-@app.route("/personalize/<prompt>",methods=['GET','POST'])
+@app.route("/personalize",methods=['POST'])
 @cross_origin()
-def personalise(prompt:str):
-    results=pc.customize_background(prompt)
+def personalise():
+    profile=request.data.decode('utf-8')
+    results=pc.customize_background(profile)
     response={
         "data": 
         {
@@ -81,6 +82,7 @@ def personalise(prompt:str):
         }
     }
     return jsonify(response)
+   
 
 
 
