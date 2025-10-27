@@ -6,11 +6,34 @@
         <link rel="stylesheet" href="/static/style2.css"/>
     </head>
     <body>
-    <form action="/social">
+        <header>
+            <h2>Any Company Inc</h2>
+        </header>
+        <form action="/social">
              <div class="container">
-                <h1>Personalized Images</h1>
-                <img src="data:image/png;base64,{{ data }}" alt="Personalized Image"/>
-            </div>
+                <h1>Personalized Image Catalog</h1>
+                <table>
+                    <tr>
+                        <th>Product Image</th>
+                        <th>Personalized Image</th>
+                        <th>Publish(Yes/No)</th>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <img src="/static/shoes.png" alt="Product Image" height="150" width="150"/>
+                        </td>
+                        <td align="center">
+                            <!-- Personalized image will be displayed here -->
+                            <img src="data:image/png;base64,{{ data }}" alt="Personalized Image" height="150" width="150"/>
+                        </td>
+                        <td>
+                            <select name="publish_option">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </td>
+                </table>
+           </div>
             <button type="submit" class="submit-btn" style="float: right;" >Create Customer Experience</button>
         </form>
         </body>

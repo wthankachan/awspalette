@@ -9,11 +9,10 @@ def summarizeprofile(profile:str)->str:
     )
     agentPrompt="""
         You are an agent specialized in creating summarized profiles as a text that can be used as a prompt to generate background personalized content for product images.
-        use key information like demographics, geneder, interests to create the profile summary. Limit the summary to 800 words
+         Remove all section headings. Use demographics, geneder, and interests to create the profile summary. Do not be verbose.
         """
     summaryagent=Agent(system_prompt=agentPrompt,model=models[1])
-    response=summaryagent(f"Generate a summarized profile using this profile: {profile}. Limit the summary to 800 words.")
-    print("Profile Summary:",response)
+    response=summaryagent(f"Summarize this profile: {profile}. Do not be verbose. Limit the summary to 3 sentences.")
     return response
     
   

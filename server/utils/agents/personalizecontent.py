@@ -9,19 +9,19 @@ def customize_background(profile:str)->str:
     
     # S3 bucket and key
     bucket_name = 'aws-palette-stock-images--use1-az4--x-s3'
-    object_key = 'bodyspray.png'
+    object_key = 'shoes.png'
     
     # Read image from S3
     response = s3_client.get_object(Bucket=bucket_name, Key=object_key)
     image_data = response['Body'].read()
     image_base64 = base64.b64encode(image_data).decode('utf-8')
-    # temp - remove this later:
     user_prompt=sp.summarizeprofile(profile)
+    print("User Prompt:",user_prompt)
     # Prepare request for Amazon Nova model
     request_body = {
         "taskType": "IMAGE_VARIATION",
         "imageVariationParams": {
-            "text": "Place the image in a background using the provided customer profile. Do not modify the product image in the foreground. Customer Profile:"+user_prompt,
+            "text": f"Place the image in a background using the provided customer profile. Do not modify the product image in the foreground. Customer Profile: {user_prompt}",
             "images": [
                 image_base64,
             ]
