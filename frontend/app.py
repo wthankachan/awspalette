@@ -6,6 +6,7 @@ import json
 import ast
 import requests
 import html
+import sys
 
 #initialize the global values
 app = Flask(__name__)
@@ -15,7 +16,7 @@ config.read('config.ini')
 #read the config values
 #default is running in development mode
 #TODO: use the mode argument to determine if dev or prod
-mode='Development'
+mode=sys.argv[1:][1] if len(sys.argv) > 1 else "development"
 BASEAPIURL=config[mode]["protocol"]+"://"+config[mode]["apibaseurl"]+":"+config[mode]["port"]+"/"
 
 
