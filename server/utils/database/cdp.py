@@ -37,7 +37,7 @@ class CustomerData:
       cursor = self.conn.cursor()
       # Query a table using the Cursor
       try:
-         cursor.execute(f"select customer_id,first_name+' '+last_name as name,datediff(year,birth_date,current_date) as age,email,loyalty_level,to_char(total_purchases,'99999.99'),is_active from customer where age> 20 limit {rowlimit}")
+         cursor.execute(f"select customer_id,first_name+' '+last_name as name,datediff(year,birth_date,current_date) as age,email,loyalty_level,to_char(total_purchases,'99999.99') as total_purchases,case when is_active then 'true' else 'false' end as is_active from customer where age> 20 limit {rowlimit}")
       except Exception as e:
             print(f"Error occured: {e}")
             cursor.close()
