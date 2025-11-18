@@ -1,6 +1,6 @@
 from flask import Flask,request,Response,jsonify
 from flask_cors import CORS,cross_origin
-from utils.agents.customer import Customer
+import utils.agents.customer as customeragent
 from utils.database.cdp import CustomerData
 import json
 import configparser
@@ -17,7 +17,7 @@ CORS(app)
 mode="Development"
 config.read('config.ini')
 rowlimit=config[mode]['rowlimit']
-customer=Customer()
+#customer=Customer()
 customerdata=CustomerData(config,mode)
 
 #create the routes
@@ -55,7 +55,7 @@ def getcustomers():
 @app.route("/customerprofile/<customerid>",methods=['GET','POST'])
 @cross_origin()
 def generateprofile(customerid='0'):
-    results=customer.generateprofile(customerid)
+    results=customeragent.generateprofile(customerid,mode)
     response={
         "data": 
         {

@@ -10,15 +10,30 @@ class CustomerData:
       self.config=config
       self.mode=mode
 
-
    def getcustomerdata(self,customerid:str)->tuple:  
          if self.conn is None:
             self.dbconnect(self.config[self.mode])
          # Create a Cursor object
          cursor = self.conn.cursor()
          # Query a table using the Cursor
+         customerSQL="""
+         select 
+         ct.preferred_brands as preferred_brands,
+         ct.preferred_categories as preferred_categories,
+         ct.favorite_products as favorite_products,
+         ct.lifestyle_segment as lifestyle_segment,
+         ct.life_stage as life_stage,
+         ct.interests as interests,
+         datediff(year,cu.birth_date,current_date) as age 
+         from 
+         customer_traits ct,
+         customer cu 
+         where 
+         ct.customer_id=cu.customer_id and 
+         cu.customer_id=
+         """
          try:
-            cursor.execute(f"select * from customer_traits where customer_id={customerid}")
+            cursor.execute(customerSQL+customerid)
          except Exception as e:
             print(f"Error occured: {e}")
             cursor.close()
